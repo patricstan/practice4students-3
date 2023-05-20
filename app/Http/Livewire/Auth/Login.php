@@ -10,6 +10,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -46,17 +47,30 @@ class Login extends Component implements HasForms
         return 'data';
     }
 
+    protected function prepareUserData($data): array
+    {
+        $user = [
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'remember' =>  $data['remember'] ?? false
+        ];
+
+        return $user;
+    }
+
     public function submit()
     {
         // Try to autenthicate user.
         // If remeber checkbox was not filled, automatically select false, otherwise the value
+        $user = $this->prepareUserData($this->form->getState());
+        if (!FacadesAuth::attempt(['email' => $user['email'], 'password' => $user['password']], $user['remember'])) {
+            throw ValidationException::withMessages([
+                'data.email' => "Invalid email or password!",
 
-        if (!FacadesAuth::attempt(['email' => $this->data['email'], 'password' => $this->data['password']], $this->data['remember'] ?? false)) {
-            $this->addError('email', trans('auth.failed'));
-
-            return;
+                'data.password' => "Invalid email or password",
+            ]);
         }
-
+        session()->regenerate();
         return redirect()->intended(route('home'));
     }
     public function render(): View
