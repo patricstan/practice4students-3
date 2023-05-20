@@ -26,7 +26,6 @@ class Login extends Component implements HasForms
                 ->email()
                 ->required(),
             TextInput::make('password')
-                ->minLength(8)
                 ->password()
                 ->required(),
             Checkbox::make('remember')
