@@ -120,23 +120,14 @@ class Register extends Component implements HasForms
         FacadesAuth::login($user);
 
         return redirect()->intended(route('home'));
-        // if ($user->role == 'company') {
-        //     $user->company()->create([
-        //         'company_name' => $this->data['companyName']
-        //     ]);
-        // }
-
-        // // Something siilar for student
-        // event(new Registered($user));
-
-        // FacadesAuth::login($user);
-
-        // return redirect()->intended(route('home'));
     }
 
     public function render()
     {
-        return view('livewire.auth.register')
-            ->layout(Auth::class);
+        return view('livewire.auth.login')
+            ->layout(Auth::class, [
+                'cta_title' => 'Create a new account', 'cta_alt' => 'sign in to your account',
+                'alt_link' => route('login')
+            ]);
     }
 }

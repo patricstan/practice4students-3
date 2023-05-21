@@ -10,6 +10,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -76,6 +77,9 @@ class Login extends Component implements HasForms
     public function render(): View
     {
         return view('livewire.auth.login')
-            ->layout(Auth::class);
+            ->layout(Auth::class, [
+                'cta_title' => 'Sign in to your account', 'cta_alt' => 'create a new account',
+                'alt_link' => route('register')
+            ]);
     }
 }

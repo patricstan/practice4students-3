@@ -23,8 +23,8 @@
                     </x-guest.nav-link>
                 </li>
                 <li>
-                    <x-guest.nav-link :href="route('test')" :active="request()->routeIs('test')">
-                        Test
+                    <x-guest.nav-link :href="route('companies')" :active="request()->routeIs('companies')">
+                        Companies
                     </x-guest.nav-link>
                 </li>
 
