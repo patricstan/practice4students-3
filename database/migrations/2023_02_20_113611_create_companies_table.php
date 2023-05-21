@@ -17,7 +17,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('company_name');
             $table->string('logo')->nullable();
-            $table->string('about')->nullable();
+            $table->text('about')->nullable();
             $table->timestamps();
         });
     }
