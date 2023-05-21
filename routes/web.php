@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([], function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('home');
+    Route::get('/', WelcomeController::class)
+        ->name('home');
 
     Route::get('/test', function () {
         return view('welcome');

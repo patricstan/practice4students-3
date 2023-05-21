@@ -25,7 +25,8 @@ return new class extends Migration
             $table->json('applied')->nullable();
             $table->json('accepted')->nullable();
             $table->boolean('is_available')->default(true);
-            $table->foreignId('company_id');
+            $table->foreignId('company_id')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
