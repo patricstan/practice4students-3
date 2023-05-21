@@ -105,7 +105,7 @@ class Register extends Component implements HasForms
 
         switch ($userData['role']) {
             case "company":
-                $company = new Company(['company_name' => $userData['companyName']]);
+                $company = new Company(['company_name' => $userData['companyName'], 'logo' => "https://placehold.co/600x400"]);
                 $user->company()->save($company);
                 break;
 
