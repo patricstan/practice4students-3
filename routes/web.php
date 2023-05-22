@@ -3,6 +3,7 @@
 use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
+use App\Http\Livewire\Guest\CompanyList;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,9 @@ Route::group([], function () {
 
     Route::get('/', WelcomeController::class)
         ->name('home');
+
+    Route::get('/companies', CompanyList::class)
+        ->name('companies');
 
     Route::get('/test', function () {
         return view('welcome');

@@ -21,6 +21,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    @livewire('livewire-ui-modal')
     @livewireScripts
     @stack('scripts')
 </head>

@@ -51,34 +51,10 @@
 
     <!-- Gallery section for 5 partenerd companies  -->
     <!-- If no partenered company exists, then do not render -->
-    @if(count($companies))
-    <section class="bg-white dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
-
-            <h2 class="text-4xl font-extrabold dark:text-white pb-8">Partenered Companies</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 ">
-
-                @for ($idx = 0; $idx
-                < count($companies); $idx +=1) <x-guest.company-card :companyId="$companies[$idx]->id" :companyName="$companies[$idx]->company_name" :companyLogo="$companies[$idx]->logo" />
-                @endfor
-
-                @if(count($companies) == 5)
-                <div class="grid items-center justify-items-center">
-                    <!-- TODO: fix route -->
-                    <a href="#">
-                        <x-app.primary-button>
-                            View all Partenered Companies
-                        </x-app.primary-button>
-                    </a>
-                </div>
-                @endif
-            </div>
-        </div>
-    </section>
-    @else
-    @endif
+    <div class="-mt-20">
+        <livewire:guest.company-list :showMore="true" />
+    </div>
 
     <!-- End Gallery section -->
-
 
 </x-layouts.guest>
