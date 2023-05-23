@@ -9,9 +9,9 @@ class CompanyModal extends ModalComponent
 {
     public Company $company;
 
-    public function mount(Company $company)
+    public function viewOffers()
     {
-        $this->company = $company;
+        return redirect()->route('offers_company', ['company_id' => $this->company->id]);
     }
 
     public function render()

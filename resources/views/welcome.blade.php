@@ -49,12 +49,5 @@
 
     <!-- End Hero section -->
 
-    <!-- Gallery section for 5 partenerd companies  -->
-    <!-- If no partenered company exists, then do not render -->
-    <div class="-mt-20">
-        <livewire:guest.company-list :showMore="true" />
-    </div>
-
-    <!-- End Gallery section -->
 
 </x-layouts.guest>

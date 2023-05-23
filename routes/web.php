@@ -3,7 +3,8 @@
 use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
-use App\Http\Livewire\Guest\CompanyList;
+use App\Http\Livewire\Guest\CompanyGrid;
+use App\Http\Livewire\Guest\OfferGrid;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,12 +23,14 @@ Route::group([], function () {
     Route::get('/', WelcomeController::class)
         ->name('home');
 
-    Route::get('/companies', CompanyList::class)
+    Route::get('/companies', CompanyGrid::class)
         ->name('companies');
 
-    Route::get('/test', function () {
-        return view('welcome');
-    })->name('test');
+    Route::get('/offers', OfferGrid::class)
+        ->name('offers');
+
+    Route::get('/offers?tableFilters[company_name][value]={company_id}', OfferGrid::class)
+        ->name('offers_company');
 });
 
 

@@ -1,4 +1,4 @@
-<nav class="bg-white dark:bg-gray-900 fixed w-full  top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+<nav class="bg-white dark:bg-gray-900 fixed w-full z-[9] top-0 left-0 border-b border-gray-200 dark:border-gray-600">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
         <x-app.logo />
@@ -18,13 +18,14 @@
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
             <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
-                    <x-guest.nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        Home
-                    </x-guest.nav-link>
-                </li>
-                <li>
                     <x-guest.nav-link :href="route('companies')" :active="request()->routeIs('companies')">
                         Companies
+                    </x-guest.nav-link>
+                </li>
+
+                <li>
+                    <x-guest.nav-link :href="route('offers')" :active="request()->routeIs('offers')">
+                        Offers
                     </x-guest.nav-link>
                 </li>
 

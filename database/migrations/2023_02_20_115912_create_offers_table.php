@@ -18,8 +18,8 @@ return new class extends Migration
             $table->boolean('is_paid');
             $table->string('salary')->nullable();
             $table->string('currency')->nullable();
-            $table->boolean('is_remote')->nullable();
-            $table->string('city');
+            $table->enum('work_location', ['remote', 'office', 'mixed']);
+            $table->string('city')->nullable();
             $table->json('skills');
             $table->text('description');
             $table->json('applied')->nullable();
