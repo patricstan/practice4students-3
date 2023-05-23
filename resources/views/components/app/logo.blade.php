@@ -15,5 +15,5 @@
              <use xlink:href="#logo_svg__a" fill="url(#logo_svg__b)"></use>
              <use xlink:href="#logo_svg__c" fill="url(#logo_svg__d)"></use>
          </svg></div>
-     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Practice4Students</span>
+     <span class="self-center text-xl sm:text-2xl font-semibold whitespace-nowrap dark:text-white">Practice4Students</span>
  </a>

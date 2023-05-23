@@ -3,6 +3,8 @@
     <!-- Navigation component -->
     <x-guest.nav />
 
+
+
     <!-- Main content  -->
     <div class="max-w-7xl px-4 mx-auto sm:px-6 ">
         <div class="flex flex-col justify-between ">
