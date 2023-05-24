@@ -14,6 +14,7 @@
         </div>
     </div>
 
+
     <!-- Footer component -->
     <x-guest.footer />
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Guest;
 
 use App\Models\Offer;
+use App\View\Components\Layouts\Guest;
 use App\View\Components\Layouts\GuestContent;
 use Closure;
 use Filament\Forms\Components\DatePicker;

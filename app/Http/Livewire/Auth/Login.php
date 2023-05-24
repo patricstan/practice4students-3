@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Auth;
 
+use App\Http\Controllers\Auth\DashboardRedirectController;
 use App\View\Components\Layouts\Auth;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
@@ -10,8 +11,6 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -52,7 +51,7 @@ class Login extends Component implements HasForms
     {
         $user = [
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'],
             'remember' =>  $data['remember'] ?? false
         ];
 
@@ -72,7 +71,7 @@ class Login extends Component implements HasForms
             ]);
         }
         session()->regenerate();
-        return redirect()->intended(route('home'));
+        return redirect()->action([DashboardRedirectController::class]);
     }
     public function render(): View
     {

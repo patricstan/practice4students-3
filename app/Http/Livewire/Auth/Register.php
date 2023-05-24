@@ -85,7 +85,7 @@ class Register extends Component implements HasForms
             'phone' => $this->data['phone'],
             'password' => Hash::make($this->data['password']),
             'role' => $this->data['role'],
-            'companyName' => $this->data['companyName']
+            'companyName' => $this->data['companyName'] ?? ''
         ];
 
         return $user;
