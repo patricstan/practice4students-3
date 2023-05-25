@@ -28,24 +28,29 @@ class Register extends Component implements HasForms
     {
         return [
             TextInput::make('name')
+                ->maxLength(255)
                 ->required(),
 
             TextInput::make('email')
+                ->maxLength(255)
                 ->email()
                 ->required()
                 ->unique(table: User::class),
 
             TextInput::make('phone')
+                ->maxLength(255)
                 ->required(),
 
             TextInput::make('password')
                 ->password()
                 ->minLength(8)
+                ->maxLength(255)
                 ->reactive()
                 ->required(),
 
             TextInput::make('confirmPassword')
                 ->same('password')
+                ->required()
                 ->password(),
 
             Select::make('role')
@@ -57,6 +62,7 @@ class Register extends Component implements HasForms
                 ]),
 
             TextInput::make('companyName')
+                ->maxLength(255)
                 ->hidden(fn (Closure $get) => $get('role') !== 'company')
                 ->disabled(fn (Closure $get) => $get('role') !== 'company')
                 ->required(fn (Closure $get) => $get('role') == 'company')

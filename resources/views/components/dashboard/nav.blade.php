@@ -8,7 +8,7 @@
         </svg>
     </button>
 
-    <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <aside id="logo-sidebar" class="fixed top-0 left-0 z-9 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <x-app.logo class="mb-6" />
             <ul class="space-y-2 font-medium">
@@ -24,8 +24,8 @@
                 ['name' => 'Dashboard', 'route' => 'dashboard', 'active' => 'student.dashboard', 'svg' => 'heroicon-s-chart-pie'],
                 ['name' => 'Documents', 'route' => 'student.documents', 'active' => 'student.documents', 'svg' => 'heroicon-s-document-text'],
                 ['name' => 'Resume', 'route' => 'student.resume', 'active' => 'student.resume', 'svg' => 'heroicon-s-academic-cap'],
-                ['name' => 'Internship Status', 'route' => 'home', 'active' => 'home', 'svg' => 'heroicon-s-clipboard-check'],
-                ['name' => 'Profile', 'route' => 'home', 'active' => 'home', 'svg' => 'heroicon-s-user'],
+                ['name' => 'Internship Status', 'route' => 'student.internship', 'active' => 'student.internship', 'svg' => 'heroicon-s-clipboard-check'],
+                ['name' => 'Profile', 'route' => 'profile', 'active' => 'profile', 'svg' => 'heroicon-s-user'],
                 ];
                 @endphp
                 @endif

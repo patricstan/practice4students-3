@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Auth\DashboardRedirectController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Dashboard\Student\StudentDocuments;
 use App\Http\Livewire\Dashboard\Student\StudentIndex;
+use App\Http\Livewire\Dashboard\Student\StudentInternshipStatus;
 use App\Http\Livewire\Dashboard\Student\StudentResume;
 use App\Http\Livewire\Guest\CompanyGrid;
 use App\Http\Livewire\Guest\OfferGrid;
@@ -28,18 +30,19 @@ Route::group([], function () {
     Route::get('/', WelcomeController::class)
         ->name('home');
 
-    Route::get('/companies', CompanyGrid::class)
+    Route::get('companies', CompanyGrid::class)
         ->name('companies');
 
-    Route::get('/offers', OfferGrid::class)
+    Route::get('offers', OfferGrid::class)
         ->name('offers');
 
-    Route::get('/offers?tableFilters[company_name][value]={company_id}', OfferGrid::class)
+    Route::get('offers?tableFilters[company_name][value]={company_id}', OfferGrid::class)
         ->name('offers_company');
 });
 
 
 Route::middleware('web')->group(function () {
+
     Route::get('login', Login::class)
         ->name('login');
 
@@ -48,10 +51,13 @@ Route::middleware('web')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
     Route::get('dashboard', DashboardRedirectController::class)
         ->name('dashboard');
 
     Route::post('logout', LogoutController::class)->name('logout');
+
+    Route::get('profile', ProfileController::class)->name('profile');
 });
 
 // Route::name('faculty.')->prefix('faculty')->middleware(['auth', 'user-access:faculty'])->group(function () {
@@ -80,11 +86,16 @@ Route::middleware('auth')->group(function () {
 // });
 
 Route::name('student.')->prefix('student')->middleware(['auth', 'user-access:student'])->group(function () {
+
     Route::get('/dashboard', StudentIndex::class)->name('dashboard');
+
     Route::get('/documents', StudentDocuments::class)->name('documents');
+
     Route::get('resume', StudentResume::class)->name('resume');
+
+    Route::get('internship-status', StudentInternshipStatus::class)->name('internship');
+
     // Route::get('apply/{oid}', OfferApply::class)->name('apply');
-    // Route::get('internship_status', App\Http\Livewire\Student\InternshipStatus::class)->name('internship.status');
     // Route::get('document/add', App\Http\Livewire\Student\DocumentAdd::class)->name('document.add');
 });
 
