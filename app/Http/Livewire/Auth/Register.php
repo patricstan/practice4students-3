@@ -125,7 +125,7 @@ class Register extends Component implements HasForms
 
         FacadesAuth::login($user);
 
-        return redirect()->intended(route('home'));
+        return redirect()->intended(route('dashboard'));
     }
 
     public function render()

@@ -18,7 +18,8 @@
                 @php
                 $svg = 'heroicon-s-chart-pie'
                 @endphp
-                @if(Auth::user()->role == 'student')
+                @switch(Auth::user()->role)
+                @case('student')
                 @php
                 $links = [
                 ['name' => 'Dashboard', 'route' => 'dashboard', 'active' => 'student.dashboard', 'svg' => 'heroicon-s-chart-pie'],
@@ -28,7 +29,19 @@
                 ['name' => 'Profile', 'route' => 'profile', 'active' => 'profile', 'svg' => 'heroicon-s-user'],
                 ];
                 @endphp
-                @endif
+                @break
+                @case('faculty')
+                @php
+                $links = [
+                ['name' => 'Dashboard', 'route' => 'dashboard', 'active' => 'faculty.dashboard', 'svg' => 'heroicon-s-chart-pie'],
+                ['name' => 'Templates', 'route' => 'faculty.templates', 'active' => 'faculty.templates', 'svg' => 'heroicon-s-document-text'],
+                ['name' => 'Companies', 'route' => 'faculty.companies', 'active' => 'faculty.companies', 'svg' => 'heroicon-s-office-building'],
+                ['name' => 'Students', 'route' => 'faculty.students', 'active' => 'faculty.students', 'svg' => 'heroicon-s-academic-cap'],
+                ['name' => 'Profile', 'route' => 'profile', 'active' => 'profile', 'svg' => 'heroicon-s-user'],
+                ];
+                @endphp
+                @break
+                @endswitch
                 @foreach($links as $link)
                 <li>
                     <x-dashboard.nav-link :href="route($link['route'])" :active="request()->routeIs($link['active'])" :svg="$link['svg']">
