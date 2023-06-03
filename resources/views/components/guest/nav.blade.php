@@ -25,6 +25,8 @@
                     Offers
                 </x-guest.nav-link>
 
+                <!-- <x-app.theme-switcher /> -->
+
                 @unless(Auth::check())
                 @if (Route::has('login'))
                 <x-guest.nav-link :href="route('login')" :active="request()->routeIs('login')">
