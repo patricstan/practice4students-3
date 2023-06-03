@@ -1,4 +1,5 @@
 import "flowbite";
+import ApexCharts from "apexcharts";
 
 import Alpine from "alpinejs";
 import Focus from "@alpinejs/focus";

@@ -23,6 +23,7 @@
     @livewireStyles
     @livewire('livewire-ui-modal')
     @livewireScripts
+    @livewireChartsScripts
     @stack('scripts')
 </head>
 
