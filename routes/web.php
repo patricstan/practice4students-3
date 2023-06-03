@@ -9,6 +9,7 @@ use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Dashboard\Faculty\FacultyCompanies;
 use App\Http\Livewire\Dashboard\Faculty\FacultyIndex;
 use App\Http\Livewire\Dashboard\Faculty\FacultyStudents;
+use App\Http\Livewire\Dashboard\Faculty\FacultyTemplateCreate;
 use App\Http\Livewire\Dashboard\Faculty\FacultyTemplates;
 use App\Http\Livewire\Dashboard\Student\StudentDocuments;
 use App\Http\Livewire\Dashboard\Student\StudentIndex;
@@ -16,6 +17,7 @@ use App\Http\Livewire\Dashboard\Student\StudentInternshipStatus;
 use App\Http\Livewire\Dashboard\Student\StudentResume;
 use App\Http\Livewire\Guest\CompanyGrid;
 use App\Http\Livewire\Guest\OfferGrid;
+use App\Http\Livewire\Test2;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,8 +69,10 @@ Route::middleware('auth')->group(function () {
 Route::name('faculty.')->prefix('faculty')->middleware(['auth', 'user-access:faculty'])->group(function () {
     Route::get('dashboard', FacultyIndex::class)->name('dashboard');
     Route::get('templates', FacultyTemplates::class)->name('templates');
+    Route::get('template/create', FacultyTemplateCreate::class)->name('template.create');
     Route::get('companies', FacultyCompanies::class)->name('companies');
     Route::get('students', FacultyStudents::class)->name('students');
+    Route::get('test', Test2::class);
     //     Route::get('dashboard', App\Http\Livewire\Dashboard\Faculty\Index::class)->name('dashboard');
     //     Route::get('template/create', App\Http\Livewire\Dashboard\Faculty\Templates\TemplateCreate::class)->name('template.create');
     //     Route::get('template/edit/{id}', App\Http\Livewire\Dashboard\Faculty\Templates\TemplateEdit::class)->name('template.edit');

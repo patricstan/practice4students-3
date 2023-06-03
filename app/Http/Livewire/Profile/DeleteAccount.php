@@ -4,16 +4,16 @@ namespace App\Http\Livewire\Profile;
 
 use App\Models\User;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use LivewireUI\Modal\ModalComponent;
 
-class DeleteAccount extends ModalComponent implements HasTable
+class DeleteAccount extends ModalComponent implements HasForms
 {
-    use InteractsWithTable;
+    use InteractsWithForms;
 
     public User $user;
     public $password;

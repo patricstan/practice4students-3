@@ -30,4 +30,5 @@
 
     {{ $slot }}
     @livewire('notifications')
+
 </body>

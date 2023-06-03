@@ -55,17 +55,19 @@ RUN groupadd --force -g $WWWGROUP sail
 RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
 # Setup pyvenv and install package inside
-ENV P4S=git+https://patricstan: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@github.com/patricstan/practice4students-py.git
-ENV PYENV=/var/www/P4S
+# ENV P4S=git+https://patricstan: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@github.com/patricstan/practice4students-py.git
+# ENV PYENV=/var/www/P4S
 
-ARG CACHEBUST= 2
-RUN echo ${CACHEBUST}
+# ARG CACHEBUST=10
+# RUN echo ${CACHEBUST}
 
-RUN python3 -m venv ${PYENV}
-ENV PATH="${PYENV}/bin:${PATH}"
-RUN pip install wheel \
-    && pip install docxtpl \
-    && pip install ${P4S}
+# RUN python3 -m venv ${PYENV}
+# ENV PATH="${PYENV}/bin:${PATH}"
+# RUN pip install wheel \
+#     && pip install docxtpl \
+#     && pip install ${P4S}
+#
+RUN pip install python-docx && pip install docxtpl
 
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
