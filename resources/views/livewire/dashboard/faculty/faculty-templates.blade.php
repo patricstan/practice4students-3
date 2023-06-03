@@ -5,5 +5,5 @@
         </a>
         </x-slot>
 
-        <!-- table -->
+        {{$this->table}}
 </div>
