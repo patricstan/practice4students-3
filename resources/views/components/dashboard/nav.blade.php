@@ -41,6 +41,19 @@
                 ];
                 @endphp
                 @break
+                @case('company')
+                @php
+                $links = [
+                ['name' => 'Dashboard', 'route' => 'dashboard', 'active' => 'company.dashboard', 'svg' => 'heroicon-s-chart-pie'],
+                ['name' => 'Company Information', 'route' => 'company.info', 'active' => 'company.info', 'svg' => 'heroicon-s-office-building'],
+                ['name' => 'Offers', 'route' => 'company.offers', 'active' => 'company.offers', 'svg' => 'heroicon-s-archive'],
+                ['name' => 'Applicants', 'route' => 'company.applicants', 'active' => 'company.applicants', 'svg' => 'heroicon-s-academic-cap'],
+                ['name' => 'Student Documents', 'route' => 'company.documents.student', 'active' => 'company.documents.student', 'svg' => 'heroicon-s-document-text'],
+                ['name' => 'Faculty Documents', 'route' => 'company.documents.faculty', 'active' => 'company.documents.faculty', 'svg' => 'heroicon-s-document-report'],
+                ['name' => 'Profile', 'route' => 'profile', 'active' => 'profile', 'svg' => 'heroicon-s-user'],
+                ];
+                @endphp
+                @break
                 @endswitch
                 @foreach($links as $link)
                 <li>
@@ -49,6 +62,12 @@
                     </x-dashboard.nav-link>
                 </li>
                 @endforeach
+                <li>
+
+                    <x-dashboard.nav-link href="" x-cloak x-on:click="darkMode = !darkMode" svg="heroicon-s-sun">
+                        Change Theme
+                    </x-dashboard.nav-link>
+                </li>
                 <li>
 
                     <form method="POST" action="{{route('logout')}}">

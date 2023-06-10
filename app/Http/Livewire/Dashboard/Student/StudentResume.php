@@ -107,6 +107,8 @@ class StudentResume extends Component implements HasForms
     public function save()
     {
         $this->form->getState();
+
+        $this->student->update($this->data);
         Notification::make()
             ->title('CV updated successfully!')
             ->success()

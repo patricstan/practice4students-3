@@ -35,13 +35,9 @@
                     <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
                         If you're a mentor and are ready to evaluate the students you had to guide, you can do so by followin this link!
                     </p>
-                    <a href="{{route('login')}}">
-                        <x-app.primary-button>
-
-                            <!-- TODO: fix route -->
-                            Evaluation Form
-                        </x-app.primary-button>
-                    </a>
+                    <x-app.primary-button onclick="Livewire.emit('openModal', 'guest.evaluation-modal')">
+                        Evaluation Form
+                    </x-app.primary-button>
                 </div>
             </div>
         </div>

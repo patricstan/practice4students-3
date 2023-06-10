@@ -36,11 +36,19 @@ class DocumentLayout extends Component
         // return Blade::render($this->documentLayout, ['slot' => $content], deleteCachedView: true);
         // return new HtmlString(Blade::render($this->documentLayout, ['slot' => $content], deleteCachedView: true));
         $comp = $content->getComponents();
-        $plc = [];
-        for ($i = 0; $i < count($comp); $i++) {
-            $plc['placeholder_' . $i] = $comp[$i];
-        }
-        return new HtmlString(Blade::render($this->content, $plc, deleteCachedView: true));
+        // $plc = [];
+        // for ($i = 0; $i < count($comp); $i++) {
+        //     $plc['placeholder_' . $i] = $comp[$i];
+        // }
+        // return new HtmlString(Blade::render($this->content, $plc, deleteCachedView: true));
+
+        // return new HtmlString(Blade::render(
+        //     $this->documentLayout,
+        //     ['slot' => new HtmlString(Blade::render($this->content, $comp, deleteCachedView: true))],
+        //     deleteCachedView: true
+        // ));
+
+        return new HtmlString(Blade::render($this->content, $comp, deleteCachedView: true));
         // dd($content);
         // return new HtmlString(Blade::render(
         //     $this->documentLayout,

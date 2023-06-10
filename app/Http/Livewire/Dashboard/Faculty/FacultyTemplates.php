@@ -55,6 +55,7 @@ class FacultyTemplates extends Component implements HasTable
         return [
 
             Action::make('delete')
+                ->requiresConfirmation()
                 ->action(function (Document $record): void {
                     $htmlPath = $record->html_path;
                     $docPath = $record->base_path;

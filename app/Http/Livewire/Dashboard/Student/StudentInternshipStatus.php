@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Dashboard\Student;
 
 use App\Models\OfferStudent;
 use App\View\Components\Layouts\Dashboard;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -34,6 +35,21 @@ class StudentInternshipStatus extends Component implements HasTable
 
         ];
     }
+
+    protected function getTableActions(): array
+    {
+        return [
+            Action::make('cancel_application')
+                ->label('Cancel Application')
+                ->requiresConfirmation()
+                ->action(function (OfferStudent $record): void {
+                    $record->status = 'canceled';
+                    $record->save();
+                })
+                ->color('danger')
+        ];
+    }
+
 
     public function isTableSearchable(): bool
     {

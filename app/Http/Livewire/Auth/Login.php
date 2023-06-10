@@ -20,6 +20,16 @@ class Login extends Component implements HasForms
 
     public $data;
 
+    public function mount()
+    {
+        if (FacadesAuth::check()) {
+
+            return redirect()->action([DashboardRedirectController::class]);
+        } else {
+            $this->form->fill();
+        }
+    }
+
     protected function getFormSchema(): array
     {
         return [

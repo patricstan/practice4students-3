@@ -18,6 +18,7 @@
         "livewire/livewire": "^2.12",
         "mohamedsabil83/filament-forms-tinyeditor": "^1.7",
         "phpoffice/phpword": "dev-master",
+        "savannabits/filament-signature-pad": "^1.1",
         "spatie/laravel-medialibrary": "^10.0.0",
         "wire-elements/modal": "^1.0"
     },

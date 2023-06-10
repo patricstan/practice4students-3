@@ -1,4 +1,4 @@
-<div class="top-0 left-0 right-0  p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div class="top-0 left-0 right-0  p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full dark:bg-gray-900">
     <div class="relative w-full  max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button wire:click="$emit('closeModal')" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="popup-modal">
@@ -7,7 +7,7 @@
                 </svg>
                 <span class="sr-only">Close modal</span>
             </button>
-            <div class="p-6 text-center">
+            <div class="p-6 text-center dark:text-gray-400 dark:bg-gray-800">
                 {{$slot}}
             </div>
         </div>

@@ -6,6 +6,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
+use App\Http\Livewire\Dashboard\Company\Applicants;
+use App\Http\Livewire\Dashboard\Company\CompanyFacultyDocuments;
+use App\Http\Livewire\Dashboard\Company\CompanyIndex;
+use App\Http\Livewire\Dashboard\Company\CompanyInfo;
+use App\Http\Livewire\Dashboard\Company\CompanyOffers;
+use App\Http\Livewire\Dashboard\Company\CompanyStudentDocuments;
 use App\Http\Livewire\Dashboard\Faculty\FacultyCompanies;
 use App\Http\Livewire\Dashboard\Faculty\FacultyIndex;
 use App\Http\Livewire\Dashboard\Faculty\FacultyStudents;
@@ -15,9 +21,11 @@ use App\Http\Livewire\Dashboard\Student\StudentDocuments;
 use App\Http\Livewire\Dashboard\Student\StudentIndex;
 use App\Http\Livewire\Dashboard\Student\StudentInternshipStatus;
 use App\Http\Livewire\Dashboard\Student\StudentResume;
+use App\Http\Livewire\Document\DocumentFill;
 use App\Http\Livewire\Guest\CompanyGrid;
 use App\Http\Livewire\Guest\OfferGrid;
 use App\Http\Livewire\Test2;
+use App\Http\Livewire\Test3;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,7 +80,7 @@ Route::name('faculty.')->prefix('faculty')->middleware(['auth', 'user-access:fac
     Route::get('template/create', FacultyTemplateCreate::class)->name('template.create');
     Route::get('companies', FacultyCompanies::class)->name('companies');
     Route::get('students', FacultyStudents::class)->name('students');
-    Route::get('test', Test2::class);
+    Route::get('test', Test3::class);
     //     Route::get('dashboard', App\Http\Livewire\Dashboard\Faculty\Index::class)->name('dashboard');
     //     Route::get('template/create', App\Http\Livewire\Dashboard\Faculty\Templates\TemplateCreate::class)->name('template.create');
     //     Route::get('template/edit/{id}', App\Http\Livewire\Dashboard\Faculty\Templates\TemplateEdit::class)->name('template.edit');
@@ -81,17 +89,20 @@ Route::name('faculty.')->prefix('faculty')->middleware(['auth', 'user-access:fac
     //     // Route::get('info', App\Http\Livewire\Dashboard\Company\About::class)->name('info');
 });
 
-// Route::name('company.')->prefix('company')->middleware(['auth', 'user-role-access:company'])->group(function () {
-//     Route::get('dashboard', App\Http\Livewire\Dashboard\Company\Index::class)->name('dashboard');
-//     Route::get('about', App\Http\Livewire\Dashboard\Company\About::class)->name('about');
-//     Route::get('offers', App\Http\Livewire\Dashboard\Company\Offers\OffersIndex::class)->name('offers');
-//     Route::get('offers/create', App\Http\Livewire\Dashboard\Company\Offers\OfferCreate::class)->name('offers.create');
-//     Route::get('offers/edit/{id}', App\Http\Livewire\Dashboard\Company\Offers\OfferEdit::class)->name('offers.edit');
-//     Route::get('candidates', App\Http\Livewire\Dashboard\Company\Candidates::class)->name('candidates');
-//     Route::get('documents', App\Http\Livewire\Dashboard\Company\Documents::class)->name('documents');
-//     Route::get('document/add', App\Http\Livewire\Dashboard\Company\DocumentAdd::class)->name('document.add');
-//     Route::get('student_documents', App\Http\Livewire\Dashboard\Company\StudentDocuments::class)->name('student.documents');
-// });
+Route::name('company.')->prefix('company')->middleware(['auth', 'user-access:company'])->group(function () {
+    Route::get('dashboard', CompanyIndex::class)->name('dashboard');
+    Route::get('info', CompanyInfo::class)->name('info');
+    Route::get('offers', CompanyOffers::class)->name('offers');
+    Route::get('applicants', Applicants::class)->name('applicants');
+    Route::get('documents/student', CompanyStudentDocuments::class)->name('documents.student');
+    Route::get('documents/faculty', CompanyFacultyDocuments::class)->name('documents.faculty');
+    // Route::get('offers/create', App\Http\Livewire\Dashboard\Company\Offers\OfferCreate::class)->name('offers.create');
+    // Route::get('offers/edit/{id}', App\Http\Livewire\Dashboard\Company\Offers\OfferEdit::class)->name('offers.edit');
+    // Route::get('candidates', App\Http\Livewire\Dashboard\Company\Candidates::class)->name('candidates');
+    // Route::get('documents', App\Http\Livewire\Dashboard\Company\Documents::class)->name('documents');
+    // Route::get('document/add', App\Http\Livewire\Dashboard\Company\DocumentAdd::class)->name('document.add');
+    // Route::get('student_documents', App\Http\Livewire\Dashboard\Company\StudentDocuments::class)->name('student.documents');
+});
 
 Route::name('student.')->prefix('student')->middleware(['auth', 'user-access:student'])->group(function () {
 

@@ -25,7 +25,9 @@
                     Offers
                 </x-guest.nav-link>
 
-                <!-- <x-app.theme-switcher /> -->
+                <x-guest.nav-link x-cloak x-on:click="darkMode = !darkMode" class="cursor-pointer">
+                    Change Theme
+                </x-guest.nav-link>
 
                 @unless(Auth::check())
                 @if (Route::has('login'))

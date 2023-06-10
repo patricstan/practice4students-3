@@ -1,9 +1,9 @@
 <x-layouts.guest>
-    <div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 dark:bg-gray-900  sm:px-6 lg:px-8">
         <section class="bg-gray-50 dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 ">
                 <div class="flex flex-col justify-center">
-                    <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900 leading-9">
+                    <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900 dark:text-gray-300 leading-9">
                         {{$cta_title}}
                     </h2>
                     <p class="mt-2 text-sm text-center text-gray-600 leading-5 max-w">

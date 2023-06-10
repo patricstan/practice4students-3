@@ -56,6 +56,7 @@ class TemplateCreateService
         return [self::STORAGE . $nameOnly . '.docx', $htmlPath];
     }
 
+
     public static function setFinalPlaceholders($paths): void
     {
 
@@ -65,10 +66,26 @@ class TemplateCreateService
         copy(self::STORAGE . $htmlName . '.html', self::STORAGE . 'temp.html');
         $process = Process::path(self::STORAGE)->run('python3 script.py convert-to ' . 'temp.html'
             . ' ' . self::DOCX_FIL);
-
         $process2 = Process::path(self::STORAGE)->run('python3 script.py set-fields ' . $docName . '.docx' . ' ' . 'temp.docx');
+
 
         unlink(self::STORAGE . 'temp.html');
         unlink(self::STORAGE . 'temp.docx');
+    }
+
+    public static function fillInAndGetPdf($filePath, $data): string
+    {
+        $fileName = pathinfo($filePath, PATHINFO_BASENAME);
+        $fileNameOnly = pathinfo($filePath, PATHINFO_FILENAME);
+        file_put_contents(self::STORAGE . $fileNameOnly . '.json', $data);
+        // dd(json_encode($data));
+        $process = Process::path(self::STORAGE)->run('python3 script.py fill-in ' . $fileName . ' ' . self::STORAGE . $fileNameOnly . '.json');
+
+        $process2 = Process::path(self::STORAGE)->run('python3 script.py convert-to ' . 'FILLED_IN-' . $fileNameOnly . '.docx' . ' ' . self::PDF_FIL);
+
+        unlink(self::STORAGE . $fileNameOnly . '.json');
+        unlink(self::STORAGE . 'FILLED_IN-' . $fileNameOnly . '.docx');
+
+        return self::STORAGE . 'FILLED_IN-' . $fileNameOnly . '.pdf';
     }
 }

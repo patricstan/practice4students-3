@@ -11,6 +11,9 @@ use Closure;
 use DOMDocument;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard\Step;
@@ -20,156 +23,184 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Livewire\Component;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use FilamentEditorJs\Forms\Components\EditorJs;
 
 class FacultyTemplateCreate extends Component implements HasForms
 {
     use InteractsWithForms;
 
-    public ?array $data;
+    public ?array $uploadData = null;
+    public ?array $templateData;
 
-    protected function getFormStatePath(): ?string
-    {
-        return 'data';
-    }
+    public ?string $document = null;
 
-    protected function getFormSchema(): array
+    protected function getForms(): array
     {
         return [
-            WizardNoPrev::make([
-                Step::make('file_upload')
-                    ->label('File Upload')
-                    ->schema(fn () => $this->getUploadSchema())
-                    ->description('Upload a .docx document which will serve as a base for the template.')
-                    ->afterValidation(fn (Closure $set) => $this->handleUpload(reset($this->form->getRawState()['upload']), $set)),
-                Step::make('doc_info')
-                    ->label('Document Info')
-                    ->schema($this->getInfoSchema())
-                    ->description('Enter template information. This will allow users know what they fill in, and it will help
-                you keep track of all documents.'),
-                Step::make('verify_position')
-                    ->label('Verify Position')
-                    ->schema($this->getPositionsSchema())
-                    ->description('Remove or add placeholders as needed while also taking into account the double curly
-                braces ( {{}} ). Keep in mind that it is very important to make sure the placeholders are in the correct spot.'),
-                Step::make('Configure placeholders')
-                    ->schema(function (Closure $get) {
-                        if ($get('editor')) return $this->getConfigSchema($get);
-                        else return [];;
-                    })
-                    ->afterValidation(fn () => $this->submit())
-            ])
-                ->submitAction(new HtmlString("<button type='submit' class='text-white bg-blue-700 hover:bg-blue-800
-                focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600
-                dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Upload File</button>")),
-
-
-
+            'uploadForm' => $this->makeForm()
+                ->schema($this->uploadSchema())
+                ->statePath('uploadData'),
+            'templateForm' => $this->makeForm()
+                ->schema($this->templateSchema())
+                ->statePath('templateData')
         ];
     }
 
-    // protected function getFormModel(): Model|string|null
-    // {
-    //     return Document::class;
-    // }
-
     public function mount()
     {
-        $this->form->fill();
+        $this->uploadForm->fill();
+        $this->templateForm->fill();
+    }
+
+
+    public function handleUpload(): void
+    {
+        $this->uploadForm->getState();
+
+        $document = TemplateCreateService::getHtmlWithoutHeaders(pathinfo(reset($this->uploadData['upload']), PATHINFO_BASENAME));
+
+        // $this->headers = DocumentManipulation::getHeaders($document);
+
+        // $this->layout = DocumentManipulation::makeLayout($document);
+        // dd($this->layout);
+        $this->templateData['editor'] = $document;
+        // $set = fn (Closure $set) => $set('editor', $document);
+        // dd($this->editor);
+        // $set('editor', $document);
+
+        // $this->showSecond = true;
     }
 
     public function submit()
     {
-        $this->form->getState();
+        // FIXME: new html not saving (empty file)
+        $this->templateForm->getState();
         $placeholders = $this->getPlaceholders();
         $fillable_by = $this->getFillableBy($placeholders);
-        $html = $this->getHtml($placeholders);
-        $paths = TemplateCreateService::saveNewHtml(reset($this->data['upload']), $html);
+        // $html = $this->getHtml($placeholders);
+        $paths = TemplateCreateService::saveNewHtml(reset($this->uploadData['upload']), $this->document);
         TemplateCreateService::setFinalPlaceholders($paths);
         $record = [
-            'name' => $this->data['name'],
+            'name' => $this->templateData['name'],
             'base_path' => $paths[0],
             'html_path' => $paths[1],
             'fillable_by' => $fillable_by,
             'placeholders' => $placeholders,
-            'lang' => $this->data['lang']
+            'lang' => $this->templateData['lang']
         ];
         Document::create($record);
         return redirect()->route('faculty.templates');
     }
 
+
     public function render()
     {
-        return view('livewire.test2')
-            ->layout(Dashboard::class, ['title' => 'Test']);
+        return view('livewire.test3')
+            ->layout(Dashboard::class, ['title' => 'Test 3']);
     }
+
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // Sub-Schemas
+    // Schemas
     //
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function getUploadSchema(): array
-    {
-
-        return [
-            FileUpload::make('upload')
-                ->label('')
-                ->required()
-                ->disk('local')
-                ->directory('documents')
-                ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
-                ->loadingIndicatorPosition('left')
-                ->panelLayout('compact')
-                ->removeUploadedFileButtonPosition('right')
-                ->uploadButtonPosition('right')
-                ->uploadProgressIndicatorPosition('left')
-                ->reactive()
-        ];
-    }
-
-    protected function getInfoSchema(): array
+    protected function uploadSchema(): array
     {
         return [
-            TextInput::make('name')
-                ->unique(table: Document::class, column: 'name')
-                ->required(),
-            Select::make('lang')
-                ->label('Document Language')
-                ->options([
-                    'eng' => 'English',
-                    'ro' => 'Romanian',
+            WizardNoPrev::make()
+                ->schema([
+                    Step::make('file_upload')
+                        ->schema([
+                            FileUpload::make('upload')
+                                ->label('')
+                                ->required()
+                                ->disk('local')
+                                ->directory('documents')
+                                ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                                ->loadingIndicatorPosition('left')
+                                ->panelLayout('compact')
+                                ->removeUploadedFileButtonPosition('right')
+                                ->uploadButtonPosition('right')
+                                ->uploadProgressIndicatorPosition('left')
+                        ])
                 ])
-                ->required(),
+                // ->visible(fn () => !$this->showSecond)
+
+                ->submitAction(new HtmlString("<button type='submit' class='text-white bg-blue-700 hover:bg-blue-800
+                focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600
+                dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Upload Base File</button>"))
         ];
     }
 
-    protected function getPositionsSchema(): array
+    protected function templateSchema(): array
     {
         return [
-            TinyEditor::make('editor')
-                ->maxHeight(500)
-                ->minHeight(500)
-                ->label('')
-        ];
-    }
+            WizardNoPrev::make()
+                ->schema([
 
-    protected function getConfigSchema(Closure $get): array
-    {
-        $document = $get('editor');
-        $dom = new DOMDocument();
-        $dom->loadHTML($document);
-        $body = $dom->getElementsByTagName('body')->item(0);
-        $bodyHtml = $dom->saveHTML($body);
+                    Step::make('verify_poistion')
+                        ->label('Verify Position')
+                        ->description('Add / Remove placeholders and put them in the correct place')
+                        ->schema([
+                            TinyEditor::make('editor')
+                                ->maxHeight(500)
+                                ->minHeight(500)
+                                ->label('')
+                        ])->afterValidation(fn ($get) => $this->document = $get('editor')),
 
-        // $bodyCopy = $bodyHtml;
-        $fields = $this->getConfigFields($bodyHtml);
-        $replacedPlaceholders = $this->replacePlaceholders($bodyHtml, count($fields));
-        return [
-            DocumentLayout::make('configurator')
-                ->setDocumentLayout($this->generateLayout($document))
-                ->setContent($replacedPlaceholders)
-                ->schema($fields)
+                    Step::make('config_placeholders')
+                        ->label('Configure Placeholders')
+                        ->schema(function () {
+                            if ($this->document == null) {
+                                return [];
+                            } else {
+                                $fields = $this->getConfigFields($this->document);
+                                $this->document = $this->replacePlaceholders($this->document, count($fields));
+                                $doc = $this->document;
+                                return  [Grid::make(2)
+                                    ->schema([
+                                        Section::make('configurator')
+                                            ->label('Configurator')
+                                            ->schema($fields)
+                                            ->columnSpan(1)
+                                            ->extraAttributes(['class' => 'overflow-y-auto', 'style' => 'max-height:500px']),
+
+                                        Placeholder::make('document_preview')
+                                            ->label('')
+                                            ->content(new HtmlString($doc))
+                                            ->extraAttributes(['class' => 'overflow-y-auto', 'style' => 'max-height:500px'])
+
+                                    ])];
+                            }
+                        }),
+
+                    Step::make('doc_info')
+                        ->label('Document Info')
+                        ->description('Enter template information. This will allow users know what they fill in, and it will help
+                    you keep track of all documents.')
+                        ->schema(
+                            [
+                                TextInput::make('name')
+                                    ->unique(table: Document::class, column: 'name')
+                                    ->required(),
+                                Select::make('lang')
+                                    ->label('Document Language')
+                                    ->options([
+                                        'eng' => 'English',
+                                        'ro' => 'Romanian',
+                                    ])
+                                    ->required(),
+                            ]
+                        ),
+
+                ])
+
+                // ->visible(fn () => $this->showSecond)
+                ->submitAction(new HtmlString("<button type='submit' class='text-white bg-blue-700 hover:bg-blue-800
+                focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600
+                dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Upload File</button>"))
         ];
     }
 
@@ -180,51 +211,43 @@ class FacultyTemplateCreate extends Component implements HasForms
     //
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function handleUpload(\Livewire\TemporaryUploadedFile $upload, $set): void
-    {
-        $tempFileName = $upload->getFilename();
-        $tempFilePath = 'livewire-tmp/';
-        TemplateCreateService::moveUploadFromTempFolder($tempFilePath . $tempFileName);
-        $htmlFromDoc = TemplateCreateService::getHtmlWithoutHeaders($tempFileName);
-        $set('editor', $htmlFromDoc);
-    }
 
-
-    protected function getConfigFields(string $document): array
+    protected function getConfigFields(?string $document): array
     {
+        if ($document == null) {
+            return [];
+        }
         $id = 0;
         $placeholderFields = [];
         $exploded = preg_split('/{{([^}]+)}}/', $document, 2);
         do {
             if (array_key_exists(1, $exploded)) {
-                array_push(
-                    $placeholderFields,
-                    Fieldset::make('placeholder - ' . $id)
-                        ->schema([
-                            Select::make('role_' . $id)
-                                ->options([
-                                    'stu' => 'Student',
-                                    'fac' => 'Faculty Member',
-                                    'com' => 'Company Representative',
-                                    'men' => 'Mentor'
-                                ])
-                                ->label('Role')
-                                ->required(),
+                $placeholderFields['placeholder_' . $id] =
+                    Fieldset::make('placeholder_' . $id)
+                    ->id('placeholder_' . $id)
+                    ->schema([
+                        Select::make('role_' . $id)
+                            ->options([
+                                'stu' => 'Student',
+                                'fac' => 'Faculty Member',
+                                'com' => 'Company Representative',
+                                'men' => 'Mentor'
+                            ])
+                            ->label('Role')
+                            ->required(),
 
-                            Select::make('input_type_' . $id)
-                                ->options([
-                                    'txts' => 'Short Text (paragraph)',
-                                    'txtl' => 'Long Text',
-                                    'date' => 'Date',
-                                    'sign' => 'Signature'
-                                ])
-                                ->label('Input Type')
-                                ->required()
-                        ])
-                        ->extraAttributes(['class' => 'py-16'])
-                        ->disableLabel()
-                        ->columns(1)
-                );
+                        Select::make('input_type_' . $id)
+                            ->options([
+                                'txts' => 'Short Text (paragraph)',
+                                'txtl' => 'Long Text',
+                                'date' => 'Date',
+                                'sign' => 'Signature'
+                            ])
+                            ->label('Input Type')
+                            ->required()
+                    ])
+                    ->extraAttributes(['class' => 'py-16'])
+                    ->disableLabel();
                 $exploded = preg_split('/{{([^}]+)}}/', $exploded[1], 2);
                 $id += 1;
             } else {
@@ -234,40 +257,26 @@ class FacultyTemplateCreate extends Component implements HasForms
         return $placeholderFields;
     }
 
+
+
     protected function replacePlaceholders(string $body, int $totalFieldsNum): string
     {
 
         for ($i = 0; $i < $totalFieldsNum; $i++) {
 
-            $body = preg_replace('/{{\s*(placeholder)\s*}}/', '{{ $placeholder_' . $i . ' }}', $body, 1);
+            $body = preg_replace('/{{\s*(placeholder)\s*}}/', '{{ placeholder_' . $i . ' }}', $body, 1);
         }
         return $body;
     }
 
 
-    protected function generateLayout(string $editorDocument): string
-    {
-        $dom = new DOMDocument();
-        $template = new DOMDocument;
-        $template->loadHTML('<html></html>');
-        $dom->loadHTML($editorDocument);
-        $head = $dom->getElementsByTagName('head')->item(0);
-        $head = $template->importNode($head, true);
-        $template->documentElement->appendChild($head);
-        $body = $dom->getElementsByTagName('body')->item(0);
-        $body = $template->importNode($body);
-        $template->documentElement->appendChild($body);
-        $body->appendChild($template->createTextNode('{{ $slot }}'));
-        return $template->saveHTML();
-    }
-
     private function getPlaceholders(): array
     {
         $placeholders = [];
         $idx = 0;
-        foreach ($this->data as $key => $val) {
+        foreach ($this->templateData as $key => $val) {
             if (str_contains($key, 'input_type')) {
-                $plHolder = strtoupper($this->data['role_' . $idx] . '_' . $this->data['input_type_' . $idx] . '_' . $idx);
+                $plHolder = strtoupper($this->templateData['role_' . $idx] . '_' . $this->templateData['input_type_' . $idx] . '_' . $idx);
                 array_push(
                     $placeholders,
                     $plHolder
@@ -283,7 +292,7 @@ class FacultyTemplateCreate extends Component implements HasForms
 
         $html = preg_replace_callback('/(?<={{ )[^{}]+(?= }})/', function ($matches) use (&$placeholders) {
             return array_shift($placeholders);
-        }, $this->data['editor']);
+        }, $this->document);
 
         return $html;
     }

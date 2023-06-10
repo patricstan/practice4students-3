@@ -21,6 +21,7 @@
     "dependencies": {
         "alpinejs": "^3.12.1",
         "apexcharts": "^3.40.0",
-        "flowbite": "^1.6.5"
+        "flowbite": "^1.6.5",
+        "signature_pad": "^4.1.5"
     }
 }

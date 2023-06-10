@@ -2,11 +2,16 @@
 
 namespace App\Http\Livewire\Dashboard\Student;
 
+use App\Models\Document;
 use App\Models\DocumentStudent;
+use App\Services\DocumentFillService;
+use App\Tables\Columns\DocumentEditButton;
 use App\View\Components\Layouts\Dashboard;
 use Closure;
+use Filament\Forms\ComponentContainer;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,9 +22,12 @@ class StudentDocuments extends Component implements HasTable
 {
     use InteractsWithTable;
 
+    protected $listeners = ['refresh' => '$refresh'];
+
+
     protected function getTableQuery(): Builder|Relation
     {
-        return DocumentStudent::whereIn('student_id', auth()->user()->student->pluck('id'))->with('document')->whereRelation('document', 'type', 'student');
+        return DocumentStudent::whereIn('student_id', auth()->user()->student->pluck('id'))->with('document');
     }
 
     protected function getTableColumns(): array
@@ -27,6 +35,7 @@ class StudentDocuments extends Component implements HasTable
         return [
             TextColumn::make('document.name')->searchable()->label('Document Name'),
             TextColumn::make('document.lang')->label('Document Language'),
+            // DocumentEditButton::make('id')->label('Document Action')
 
         ];
     }
@@ -34,10 +43,22 @@ class StudentDocuments extends Component implements HasTable
     protected function getTableActions(): array
     {
         return [
+
             Action::make('edit')
-                ->action(function ($record) {
-                    $this->emit('show-doc', ['type' => 'student', 'newDoc' => $record->document_id, 'studentId' => auth()->user()->student->id, 'newHidden' => false]);
+                ->mountUsing(fn (ComponentContainer $form, DocumentStudent $record) => $form->fill($record->data))
+                ->action(function (DocumentStudent $record, array $data): void {
+                    $newData = $record->data;
+                    foreach ($data as $key => $val) {
+                        if ($val) {
+                            $newData[$key] = $val;
+                        } else {
+                            $newData[$key] = $record->data[$key];
+                        }
+                    }
+                    $record->data = $newData;
+                    $record->save();
                 })
+                ->form(fn ($record) => (new DocumentFillService($record))->getFormSchema())
         ];
     }
 
