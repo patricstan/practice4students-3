@@ -22,6 +22,7 @@ use App\Http\Livewire\Dashboard\Student\StudentIndex;
 use App\Http\Livewire\Dashboard\Student\StudentInternshipStatus;
 use App\Http\Livewire\Dashboard\Student\StudentResume;
 use App\Http\Livewire\Document\DocumentFill;
+use App\Http\Livewire\Document\DocumentFillPage;
 use App\Http\Livewire\Guest\CompanyGrid;
 use App\Http\Livewire\Guest\OfferGrid;
 use App\Http\Livewire\Test2;
@@ -52,6 +53,8 @@ Route::group([], function () {
 
     Route::get('offers?tableFilters[company_name][value]={company_id}', OfferGrid::class)
         ->name('offers_company');
+
+    // Route::get('document/fill/{doc_id}/{type}', DocumentFillPage::class)->name('document.fill');
 });
 
 

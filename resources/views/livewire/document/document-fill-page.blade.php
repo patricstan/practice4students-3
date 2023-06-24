@@ -1,5 +1,4 @@
-<x-layouts.modal>
-
+<div>
     <form wire:submit.prevent="submit" class="p-6">
 
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -8,7 +7,7 @@
 
         <div class="mt-4">
             {{$this->form}}
-            <div class="mt-6 flex justify-end space-x-9">
+            <div class="mt-6 flex justify-end space-x-24">
 
                 <x-app.primary-button class="ml-3">
                     Save
@@ -26,5 +25,4 @@
             </div>
         </div>
     </form>
-
-</x-layouts.modal>
+</div>

@@ -46,13 +46,16 @@ class FacultyStudents extends Component implements HasTable
             Action::make('documents')
                 // ->action(fn ($record, $data) => $this->emit('doc-get', ['type' => 'student', 'newDoc' => $data, 'studentId' => $record->id, 'newHidden' => false]))
                 ->action(function ($record, $data) {
-                    // dd(DocumentStudent::where('document_id', $data['document_id'])->where('student_id', $record->id)->pluck('id')->first());
+                    // return redirect()->route('document.fill', [
+
+                    //     'doc_id' => DocumentStudent::where('document_id', $data['document_id'])
+                    //         ->where('student_id', $record->id)->pluck('id')->first(),
+                    //     'type' => 'STU'
+                    // ]);
                     $this->emit('openModal', 'document.document-fill', [
                         'doc_id' => DocumentStudent::where('document_id', $data['document_id'])->where('student_id', $record->id)->pluck('id')->first(),
                         'type' => 'STU'
                     ]);
-                    // $this->emit('show-doc', ['type' => 'student', 'newDoc' => $data, 'studentId' => $record->id, 'newHidden' => false]);
-                    // $this->emit('doc-get', ['type' => 'student', 'newDoc' => $data, 'studentId' => $record->id,]);
                 })
                 ->form(fn ($record) => [
                     Select::make('document_id')

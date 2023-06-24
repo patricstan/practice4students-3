@@ -96,7 +96,7 @@ class FacultyTemplateCreate extends Component implements HasForms
     public function render()
     {
         return view('livewire.test3')
-            ->layout(Dashboard::class, ['title' => 'Test 3']);
+            ->layout(Dashboard::class, ['title' => 'Template Create']);
     }
 
 
