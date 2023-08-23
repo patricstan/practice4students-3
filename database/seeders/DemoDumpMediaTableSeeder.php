@@ -1,0 +1,236 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class DemoDumpMediaTableSeeder extends Seeder
+{
+
+    /**
+     * Auto generated seed file
+     *
+     * @return void
+     */
+    public function run()
+    {
+        
+
+        \DB::table('media')->delete();
+        
+        \DB::table('media')->insert(array (
+            0 => 
+            array (
+                'collection_name' => 'company_logos',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 14:29:51',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => 'craiyon_172034_StellarTech_Solutions_logo.png',
+                'generated_conversions' => '[]',
+                'id' => 1,
+                'manipulations' => '[]',
+                'mime_type' => 'image/png',
+                'model_id' => 1,
+                'model_type' => 'App\\Models\\Company',
+                'name' => 'craiyon_172034_StellarTech_Solutions_logo',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 187055,
+                'updated_at' => '2023-08-22 14:29:51',
+                'uuid' => '70880e7f-049d-4dad-ab64-21e05647ebbd',
+            ),
+            1 => 
+            array (
+                'collection_name' => 'company_logos',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 14:30:32',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => 'craiyon_172255_AquaGlow_Lifestyle__logo.png',
+                'generated_conversions' => '[]',
+                'id' => 2,
+                'manipulations' => '[]',
+                'mime_type' => 'image/png',
+                'model_id' => 2,
+                'model_type' => 'App\\Models\\Company',
+                'name' => 'craiyon_172255_AquaGlow_Lifestyle__logo',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 229951,
+                'updated_at' => '2023-08-22 14:30:32',
+                'uuid' => '40bae526-b405-47ad-a915-83f37269629e',
+            ),
+            2 => 
+            array (
+                'collection_name' => 'company_logos',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 14:31:01',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => 'craiyon_172457_QuantumFlora_Genetics__logo.png',
+                'generated_conversions' => '[]',
+                'id' => 3,
+                'manipulations' => '[]',
+                'mime_type' => 'image/png',
+                'model_id' => 3,
+                'model_type' => 'App\\Models\\Company',
+                'name' => 'craiyon_172457_QuantumFlora_Genetics__logo',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 317058,
+                'updated_at' => '2023-08-22 14:31:01',
+                'uuid' => '35e40504-3339-4fb6-bfad-1a6c2ab49aa8',
+            ),
+            3 => 
+            array (
+                'collection_name' => 'company_logos',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 14:31:32',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => 'craiyon_172707_SynthiPet_Companion_Robotics__logo.png',
+                'generated_conversions' => '[]',
+                'id' => 4,
+                'manipulations' => '[]',
+                'mime_type' => 'image/png',
+                'model_id' => 4,
+                'model_type' => 'App\\Models\\Company',
+                'name' => 'craiyon_172707_SynthiPet_Companion_Robotics__logo',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 254090,
+                'updated_at' => '2023-08-22 14:31:32',
+                'uuid' => '677474ea-44a5-47be-a63d-34c14c5ea5a1',
+            ),
+            4 => 
+            array (
+                'collection_name' => 'company_logos',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 14:31:54',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => 'craiyon_172905_EchoSculpt_Studios___logo.png',
+                'generated_conversions' => '[]',
+                'id' => 5,
+                'manipulations' => '[]',
+                'mime_type' => 'image/png',
+                'model_id' => 5,
+                'model_type' => 'App\\Models\\Company',
+                'name' => 'craiyon_172905_EchoSculpt_Studios___logo',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 170680,
+                'updated_at' => '2023-08-22 14:31:54',
+                'uuid' => '5f7fef16-6608-4c7b-a944-f8819a585ce1',
+            ),
+            5 => 
+            array (
+                'collection_name' => 'student_picture',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 16:06:53',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => '8Ne6smRl.jpg',
+                'generated_conversions' => '[]',
+                'id' => 6,
+                'manipulations' => '[]',
+                'mime_type' => 'image/jpeg',
+                'model_id' => 1,
+                'model_type' => 'App\\Models\\Student',
+                'name' => '8Ne6smRl',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 155685,
+                'updated_at' => '2023-08-22 16:06:53',
+                'uuid' => 'ff84e12f-0e02-4516-a2c8-1f9f26e58c78',
+            ),
+            6 => 
+            array (
+                'collection_name' => 'student_picture',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 16:07:25',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => '9PnTL-lV.jpg',
+                'generated_conversions' => '[]',
+                'id' => 7,
+                'manipulations' => '[]',
+                'mime_type' => 'image/jpeg',
+                'model_id' => 2,
+                'model_type' => 'App\\Models\\Student',
+                'name' => '9PnTL-lV',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 176395,
+                'updated_at' => '2023-08-22 16:07:25',
+                'uuid' => 'c2bf5ff8-10de-4e68-9b8e-45fe69d30d27',
+            ),
+            7 => 
+            array (
+                'collection_name' => 'student_picture',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 16:08:14',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => 'N8xYbFxW.jpg',
+                'generated_conversions' => '[]',
+                'id' => 8,
+                'manipulations' => '[]',
+                'mime_type' => 'image/jpeg',
+                'model_id' => 3,
+                'model_type' => 'App\\Models\\Student',
+                'name' => 'N8xYbFxW',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 159348,
+                'updated_at' => '2023-08-22 16:08:14',
+                'uuid' => '76af5ed8-26fc-42e9-9d5b-7100f7232000',
+            ),
+            8 => 
+            array (
+                'collection_name' => 'student_picture',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 16:08:54',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => 'LMDQbbM-.jpg',
+                'generated_conversions' => '[]',
+                'id' => 9,
+                'manipulations' => '[]',
+                'mime_type' => 'image/jpeg',
+                'model_id' => 4,
+                'model_type' => 'App\\Models\\Student',
+                'name' => 'LMDQbbM-',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 178448,
+                'updated_at' => '2023-08-22 16:08:54',
+                'uuid' => 'e42ef0a3-872e-4963-803f-32da29387331',
+            ),
+            9 => 
+            array (
+                'collection_name' => 'student_picture',
+                'conversions_disk' => 'public',
+                'created_at' => '2023-08-22 16:09:32',
+                'custom_properties' => '[]',
+                'disk' => 'public',
+                'file_name' => 'DpuzLY9m.jpg',
+                'generated_conversions' => '[]',
+                'id' => 10,
+                'manipulations' => '[]',
+                'mime_type' => 'image/jpeg',
+                'model_id' => 5,
+                'model_type' => 'App\\Models\\Student',
+                'name' => 'DpuzLY9m',
+                'order_column' => 1,
+                'responsive_images' => '[]',
+                'size' => 206806,
+                'updated_at' => '2023-08-22 16:09:32',
+                'uuid' => '8fb82952-c39b-410e-b786-b14990db4b4c',
+            ),
+        ));
+        
+        
+    }
+}

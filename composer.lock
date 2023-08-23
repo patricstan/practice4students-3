@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4ae78cb9e1a34ab54ebc42934b244ac",
+    "content-hash": "ca8c3072b6225419d73239ddfb66a9a4",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -3541,6 +3541,69 @@
             "time": "2023-02-08T01:06:31+00:00"
         },
         {
+            "name": "orangehill/iseed",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orangehill/iseed.git",
+                "reference": "92b98c8bda6280afa0fac016b1b49caf6f57f18d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orangehill/iseed/zipball/92b98c8bda6280afa0fac016b1b49caf6f57f18d",
+                "reference": "92b98c8bda6280afa0fac016b1b49caf6f57f18d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": "^7.2|^8.0.2"
+            },
+            "require-dev": {
+                "illuminate/filesystem": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "laravel/framework": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "mockery/mockery": "^1.0.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Orangehill\\Iseed\\IseedServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Orangehill\\Iseed": "src/"
+                },
+                "classmap": [
+                    "src/Orangehill/Iseed/Exceptions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Tihomir Opacic",
+                    "email": "tihomir.opacic@orangehilldev.com"
+                }
+            ],
+            "description": "Generate a new Laravel database seed file based on data from the existing database table.",
+            "keywords": [
+                "artisan",
+                "generators",
+                "laravel",
+                "seed"
+            ],
+            "support": {
+                "issues": "https://github.com/orangehill/iseed/issues",
+                "source": "https://github.com/orangehill/iseed/tree/v3.0.3"
+            },
+            "time": "2023-03-27T06:14:43+00:00"
+        },
+        {
             "name": "phpoffice/phpword",
             "version": "dev-master",
             "source": {
@@ -4470,16 +4533,16 @@
         },
         {
             "name": "savannabits/filament-signature-pad",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/savannabits/filament-signature-pad.git",
-                "reference": "a5d029ccd58fe1650e84c3b44514cf9ecd6d5336"
+                "reference": "57ca2dc598d0edbc8e805e531343d6921f264b3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/savannabits/filament-signature-pad/zipball/a5d029ccd58fe1650e84c3b44514cf9ecd6d5336",
-                "reference": "a5d029ccd58fe1650e84c3b44514cf9ecd6d5336",
+                "url": "https://api.github.com/repos/savannabits/filament-signature-pad/zipball/57ca2dc598d0edbc8e805e531343d6921f264b3e",
+                "reference": "57ca2dc598d0edbc8e805e531343d6921f264b3e",
                 "shasum": ""
             },
             "require": {
@@ -4540,7 +4603,7 @@
             ],
             "support": {
                 "issues": "https://github.com/savannabits/filament-signature-pad/issues",
-                "source": "https://github.com/savannabits/filament-signature-pad/tree/v1.1.0"
+                "source": "https://github.com/savannabits/filament-signature-pad/tree/v1.2.0"
             },
             "funding": [
                 {
@@ -4548,7 +4611,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-02T05:38:50+00:00"
+            "time": "2023-08-02T16:15:18+00:00"
         },
         {
             "name": "spatie/image",

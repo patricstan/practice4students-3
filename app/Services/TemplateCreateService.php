@@ -35,14 +35,14 @@ class TemplateCreateService
     {
         $process = Process::path(self::STORAGE)->run('python3 script.py remove-header-symbol '  . $docName);
 
+        // dd();
         $nameOnly =  pathinfo($docName, PATHINFO_FILENAME);
 
         $process2 = Process::path(self::STORAGE)->run('python3 script.py convert-to ' . $nameOnly
             . self::NO_HEADER . '.docx' . ' ' . self::HTML_FIL);
-
         unlink(self::STORAGE . $nameOnly . self::NO_HEADER . '.docx');
 
-        return file_get_contents(self::STORAGE . $nameOnly . self::NO_HEADER . '.html');
+        return file_get_contents(self::STORAGE . $nameOnly . self::NO_HEADER . '.HTML');
     }
 
     public static function saveNewHtml(string $documentPath, string $htmlData): array
@@ -52,7 +52,7 @@ class TemplateCreateService
         $file = fopen($htmlPath, 'w') or exit("Couldn't open!");
         fwrite($file, $htmlData);
         fclose($file);
-        unlink(self::STORAGE . $nameOnly . self::NO_HEADER . '.html');
+        unlink(self::STORAGE . $nameOnly . self::NO_HEADER . '.HTML');
         return [self::STORAGE . $nameOnly . '.docx', $htmlPath];
     }
 
@@ -80,6 +80,7 @@ class TemplateCreateService
         file_put_contents(self::STORAGE . $fileNameOnly . '.json', $data);
         // dd(json_encode($data));
         $process = Process::path(self::STORAGE)->run('python3 script.py fill-in ' . $fileName . ' ' . self::STORAGE . $fileNameOnly . '.json');
+        // dd($process->errorOutput());
 
         $process2 = Process::path(self::STORAGE)->run('python3 script.py convert-to ' . 'FILLED_IN-' . $fileNameOnly . '.docx' . ' ' . self::PDF_FIL);
 

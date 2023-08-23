@@ -118,7 +118,7 @@ class FacultyTemplateCreate extends Component implements HasForms
                                 ->required()
                                 ->disk('local')
                                 ->directory('documents')
-                                ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                                ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'])
                                 ->loadingIndicatorPosition('left')
                                 ->panelLayout('compact')
                                 ->removeUploadedFileButtonPosition('right')

@@ -19,3 +19,5 @@ yarn-error.log
 /.vscode
 /storage/app/documents/*.docx
 /storage/app/documents/*.html
+!storage/script.py
+!storage/app/public
